@@ -1,0 +1,208 @@
+.section2 {
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: end;
+  position: relative;
+}
+
+.section2 > img {
+  position: absolute;
+  width: 100%;
+  bottom: -15%;
+}
+
+.section2 > .left {
+  width: 40%;
+  height: 85%;
+}
+
+.section2 > .left > img {
+  width: 100%;
+  height: 85%;
+  object-fit: contain;
+}
+
+.section2 > .right {
+  width: 60%;
+  height: 85%;
+  color: #3848b6;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 3vh;
+}
+
+.section2 > .right > h1 {
+  letter-spacing: 0.05vmax;
+  font-size: 3.2vmax;
+  font-weight: 600;
+  line-height: 4.5vmax;
+}
+
+.section2 > .right > h3 {
+  font-weight: 600;
+  font-size: 1.25vmax;
+}
+
+.section2 > .right > p {
+  font-size: 1.1vmax;
+  width: 95%;
+}
+
+.section2 > .right > .right-points {
+  height: 40%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.section2 > .right > .right-points > .point-box {
+  width: 30%;
+  height: 100%;
+  background-color: #4456bd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 1.25vmax;
+  border-radius: 1vmax;
+}
+
+.section2 > .right > .right-points > .point-box > img {
+  width: 30%;
+}
+
+.section2 > .right > .right-points > .point-box > h4 {
+  font-size: 1.1vmax;
+  font-weight: 600;
+}
+
+.section2 > .right > .right-points > .point-box > p {
+  font-size: 0.9vmax;
+  font-weight: 300;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .section2 {
+    flex-direction: column;
+    height: 150vh;
+  }
+
+  .section2 > .left {
+    width: 100%;
+    height: 25%;
+    padding: 5vmax;
+  }
+
+  .section2 > .left > img {
+    height: 100%;
+  }
+
+  .section2 > .right {
+    width: 100%;
+    height: 50%;
+    padding: 2vmax;
+  }
+
+  .section2 > .right > h1 {
+    font-size: 3vmax;
+    line-height: normal;
+  }
+
+  .section2 > .right > h3 {
+    font-size: 1.5vmax;
+  }
+
+  .section2 > .right > p {
+    font-size: 1.25vmax;
+  }
+
+  .section2 > .right > .right-points {
+    flex-direction: column;
+    gap: 2vh;
+  }
+
+  .section2 > .right > .right-points > .point-box {
+    width: 80%;
+    gap: 1vmax;
+    padding: 2vmax;
+  }
+
+  .section2 > .right > .right-points > .point-box > img {
+    width: 30%;
+  }
+
+  .section2 > .right > .right-points > .point-box > h4 {
+    font-size: 1.5vmax;
+  }
+
+  .section2 > .right > .right-points > .point-box > p {
+    font-size: 1.25vmax;
+  }
+}
+
+@media screen and (max-width: 400px) {
+ .section2 {
+    flex-direction: column;
+    height: 150vh;
+  }
+
+  .section2 > .left {
+    width: 100%;
+    height: 25%;
+    padding: 5vmax;
+  }
+
+  .section2 > .left > img {
+    height: 100%;
+  }
+
+  .section2 > .right {
+    width: 100%;
+    height: 50%;
+    padding: 2vmax;
+  }
+
+  .section2 > .right > h1 {
+    font-size: 3vmax;
+    line-height: normal;
+  }
+
+  .section2 > .right > h3 {
+    font-size: 1.5vmax;
+  }
+
+  .section2 > .right > p {
+    font-size: 1.25vmax;
+  }
+
+  .section2 > .right > .right-points {
+    flex-direction: column;
+    gap: 2vh;
+  }
+
+  .section2 > .right > .right-points > .point-box {
+    width: 80%;
+    gap: 1vmax;
+    padding: 2vmax;
+  }
+
+  .section2 > .right > .right-points > .point-box > img {
+    width: 30%;
+  }
+
+  .section2 > .right > .right-points > .point-box > h4 {
+    font-size: 1.5vmax;
+  }
+
+  .section2 > .right > .right-points > .point-box > p {
+    font-size: 1.25vmax;
+  }
+}

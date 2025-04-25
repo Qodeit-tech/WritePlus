@@ -1,0 +1,152 @@
+.section4 {
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vh;
+}
+
+.section4 > h1 {
+  letter-spacing: 0.05vmax;
+  font-size: 2.25vmax;
+  font-weight: 600;
+  margin-top: 5vmax;
+  color: #4456bd;
+}
+
+.section4 > h3 {
+  font-weight: 500;
+  color: #4456bd;
+  font-size: 1.25vmax;
+}
+
+.section4 > .points-cont {
+  width: 90%;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vmax;
+}
+
+.section4 > .points-cont > .point-box {
+  width: 22.5%;
+  height: 90%;
+  background: #4456bd;
+  border-radius: 1vmax;
+  color: #ffffff;
+  padding: 0.5vmax;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.section4 > .points-cont > .point-box > img {
+  width: 30%;
+}
+
+.section4 > .points-cont > .point-box > p {
+  font-size: 0.9vmax;
+  text-align: center;
+}
+
+.section4 > p {
+  color: #4456bd;
+  font-size: 1.1vmax;
+  text-align: center;
+}
+
+.section4 > p > span {
+  font-weight: 600;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .section4 {
+    height: 140vh;
+    justify-content: space-evenly;
+    gap: 0;
+  }
+
+  .section4 > h1 {
+    font-size: 3vmax;
+    text-align: center;
+  }
+
+  .section4 > h3 {
+    font-size: 1.75vmax;
+    text-align: center;
+  }
+
+  .section4 > .points-cont {
+    width: 95%;
+    height: 65%;
+    flex-direction: column;
+    gap: 2vh;
+  }
+
+  .section4 > .points-cont > .point-box {
+    width: 70%;
+    height: 20%;
+    padding: 2vmax;
+  }
+
+  .section4 > .points-cont > .point-box > img {
+    width: 20%;
+  }
+
+  .section4 > .points-cont > .point-box > p {
+    font-size: 1.25vmax;
+  }
+
+  .section4 > p {
+    font-size: 1.5vmax;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .section4 {
+    height: 140vh;
+    justify-content: space-evenly;
+    gap: 0;
+  }
+
+  .section4 > h1 {
+    font-size: 3vmax;
+    text-align: center;
+  }
+
+  .section4 > h3 {
+    font-size: 1.75vmax;
+    text-align: center;
+  }
+
+  .section4 > .points-cont {
+    width: 95%;
+    height: 65%;
+    flex-direction: column;
+    gap: 2vh;
+  }
+
+  .section4 > .points-cont > .point-box {
+    width: 70%;
+    height: 20%;
+    padding: 2vmax;
+  }
+
+  .section4 > .points-cont > .point-box > img {
+    width: 20%;
+  }
+
+  .section4 > .points-cont > .point-box > p {
+    font-size: 1.25vmax;
+  }
+
+  .section4 > p {
+    font-size: 1.5vmax;
+  }
+}

@@ -1,0 +1,245 @@
+.section3 {
+  width: 100%;
+  height: 140vh;
+  background-image: radial-gradient(
+    circle at top right,
+    rgb(125, 155, 223) 0%,
+    rgb(125, 155, 223) 14.286%,
+    rgb(114, 141, 216) 14.286%,
+    rgb(114, 141, 216) 28.572%,
+    rgb(102, 127, 209) 28.572%,
+    rgb(102, 127, 209) 42.858%,
+    rgb(91, 114, 203) 42.858%,
+    rgb(91, 114, 203) 57.144%,
+    rgb(79, 100, 196) 57.144%,
+    rgb(79, 100, 196) 71.43%,
+    rgb(68, 86, 189) 71.43%,
+    rgb(68, 86, 189) 85.716%,
+    rgb(56, 72, 182) 85.716%,
+    rgb(56, 72, 182) 100.002%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4vh;
+  color: #f0f0f0;
+  position: relative;
+}
+
+.section3 > .wave-up {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.section3 > .wave-down {
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.section3 > h1 {
+  font-size: 2.5vmax;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+.section3 > .section3-cont {
+  height: 55%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.section3 > .section3-cont > .left {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.section3 > .section3-cont > .left > h2 {
+  font-size: 1.5vmax;
+  letter-spacing: 0.05vmax;
+  font-weight: 500;
+  width: 100%;
+  text-align: center;
+}
+
+.section3 > .section3-cont > .left > .list-cont {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vh;
+}
+
+.section3 > .section3-cont > .left > .list-cont > .list {
+  width: 85%;
+  height: 12%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1vmax;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1vw;
+  padding-left: 1.25vmax;
+  background-color: rgba(240, 240, 240, 0.075);
+  backdrop-filter: blur(20px);
+}
+
+.section3 > .section3-cont > .left > .list-cont > .list > span {
+  background-color: #f0f0f0;
+  width: 1.5vw;
+  text-align: center;
+  border-radius: 50%;
+  color: #3848b6;
+  font-weight: 500;
+}
+
+.section3 > .section3-cont > .left > p {
+  font-size: 1.1vmax;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+}
+
+.section3 > .section3-cont > .left > p > span {
+  font-weight: 500;
+}
+
+.section3 > .section3-cont > .right {
+  width: 40%;
+  height: 100%;
+  padding: 3vmax;
+}
+
+.section3 > .section3-cont > .right > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .section3 {
+    gap: 1vh;
+  }
+
+  .section3 > h1 {
+    width: 95%;
+    text-align: center;
+    font-size: 3.5vmax;
+  }
+
+  .section3 > .section3-cont {
+    height: 70%;
+    flex-direction: column-reverse;
+  }
+
+  .section3 > .section3-cont > .left {
+    width: 100%;
+    height: 65%;
+  }
+
+  .section3 > .section3-cont > .left > h2 {
+    font-size: 2.5vmax;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont {
+    gap: 1.5vh;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont > .list {
+    width: 95%;
+    height: 15%;
+    gap: 1.5vmax;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont > .list > span {
+    width: 3vmax;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont > .list > p {
+    font-size: 1.25vmax;
+  }
+
+  .section3 > .section3-cont > .left > p {
+    font-size: 1.5vmax;
+    margin-top: 1vmax;
+  }
+
+  .section3 > .section3-cont > .right {
+    width: 100%;
+    height: 35%;
+    padding: 0;
+  }
+
+  .section3 > .section3-cont > .right > img {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .section3 {
+    gap: 1vh;
+  }
+
+  .section3 > h1 {
+    width: 95%;
+    text-align: center;
+    font-size: 3.5vmax;
+  }
+
+  .section3 > .section3-cont {
+    height: 70%;
+    flex-direction: column-reverse;
+  }
+
+  .section3 > .section3-cont > .left {
+    width: 100%;
+    height: 65%;
+  }
+
+  .section3 > .section3-cont > .left > h2 {
+    font-size: 2.5vmax;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont {
+    gap: 1.5vh;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont > .list {
+    width: 95%;
+    height: 15%;
+    gap: 1.5vmax;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont > .list > span {
+    width: 3vmax;
+  }
+
+  .section3 > .section3-cont > .left > .list-cont > .list > p {
+    font-size: 1.25vmax;
+  }
+
+  .section3 > .section3-cont > .left > p {
+    font-size: 1.5vmax;
+    margin-top: 1vmax;
+  }
+
+  .section3 > .section3-cont > .right {
+    width: 100%;
+    height: 35%;
+    padding: 0;
+  }
+
+  .section3 > .section3-cont > .right > img {
+    width: 90%;
+  }
+}

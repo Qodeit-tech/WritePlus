@@ -1,0 +1,91 @@
+nav {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 5%;
+  height: 10vh;
+  width: 90%;
+  margin-top: 2.5vh;
+  border-radius: 3vmax;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav > .logo {
+  width: 20%;
+  height: 100%;
+  border-radius: 3vmax;
+  padding: 0.5vmax;
+}
+
+nav > .logo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+nav > .links {
+  width: 50%;
+  height: 100%;
+  border-radius: 3vmax;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vmax;
+}
+
+nav > .links > a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  font-size: 1.1vmax;
+}
+
+@media screen and (max-width: 600px) {
+  nav {
+    left: 2.5%;
+    width: 95%;
+    margin-top: 2vh;
+    height: 8vh;
+  }
+
+  nav > .logo {
+    width: 40%;
+    padding: 1.5vmax;
+  }
+
+  nav > .links {
+    width: 60%;
+    gap: 3vmax;
+  }
+
+  nav > .links > a {
+    font-size: 1.5vmax;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  nav {
+    left: 2.5%;
+    width: 95%;
+    margin-top: 2vh;
+    height: 8vh;
+  }
+
+  nav > .logo {
+    width: 40%;
+    padding: 1.5vmax;
+  }
+
+  nav > .links {
+    width: 60%;
+    gap: 3vmax;
+  }
+
+  nav > .links > a {
+    font-size: 1.5vmax;
+  }
+}

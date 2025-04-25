@@ -1,0 +1,264 @@
+.section7 {
+  width: 100%;
+  height: 110vh;
+  background-image: radial-gradient(
+    circle at top right,
+    rgb(125, 155, 223) 0%,
+    rgb(125, 155, 223) 14.286%,
+    rgb(114, 141, 216) 14.286%,
+    rgb(114, 141, 216) 28.572%,
+    rgb(102, 127, 209) 28.572%,
+    rgb(102, 127, 209) 42.858%,
+    rgb(91, 114, 203) 42.858%,
+    rgb(91, 114, 203) 57.144%,
+    rgb(79, 100, 196) 57.144%,
+    rgb(79, 100, 196) 71.43%,
+    rgb(68, 86, 189) 71.43%,
+    rgb(68, 86, 189) 85.716%,
+    rgb(56, 72, 182) 85.716%,
+    rgb(56, 72, 182) 100.002%
+  );
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section7 > .wave-up {
+  width: 100%;
+  position: absolute;
+  top: -5%;
+}
+
+.section7 > .wave {
+  width: 100%;
+  position: absolute;
+  bottom: -4%;
+}
+
+.section7 > .section7-cont {
+  width: 80%;
+  height: 60%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 2vmax;
+  backdrop-filter: blur(10px);
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.section7 > .section7-cont > img {
+  height: 15%;
+  margin-top: 1.5vmax;
+}
+
+.section7 > .section7-cont > h1 {
+  letter-spacing: 0.1vmax;
+  font-size: 3vmax;
+  font-weight: 600;
+  text-align: center;
+  color: #f0f0f0;
+}
+
+.section7 > .section7-cont > .button {
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: inline-flex;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 10rem;
+  font-weight: 600;
+  font-size: 1.5vmax;
+  line-height: 2vmax;
+  padding: 2vh 2.5vw;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.3s;
+  font-family: "Poppins", sans-serif;
+  text-align: left;
+  letter-spacing: 0.05vmax;
+  font-weight: 500;
+}
+
+.section7 > .section7-cont > .button > .button__icon-wrapper {
+  flex-shrink: 0;
+  width: 3vmax;
+  height: 3vmax;
+  position: relative;
+  color: #3848b6;
+  background-color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.section7 > .section7-cont > .button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: rgb(255, 255, 255);
+}
+
+.section7 > .section7-cont > .button:hover .button__icon-wrapper {
+  color: #3848b6;
+}
+
+.section7
+  > .section7-cont
+  > .button
+  > .button__icon-wrapper
+  .button__icon-svg--copy {
+  position: absolute;
+  transform: translate(-300%, 300%);
+}
+
+.section7 > .section7-cont > .button:hover .button__icon-svg:first-child {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(300%, -300%);
+}
+
+.section7 > .section7-cont > .button:hover .button__icon-svg--copy {
+  transition: transform 0.3s ease-in-out 0.1s;
+  transform: translate(0);
+}
+
+.section7 > .section7-cont > .content-strip {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2vmax;
+}
+
+.section7 > .section7-cont > .content-strip > .p-left {
+  color: white;
+  font-weight: 300;
+  font-size: 1.1vmax;
+}
+
+.section7 > .section7-cont > .content-strip > .p-right {
+  background-color: #f0f0f0;
+  font-weight: 500;
+  font-size: 1.1vmax;
+  animation: pulse 2s infinite;
+  color: #3848b6;
+  padding: 0.5vmax 2vmax;
+  border-radius: 0.5vmax;
+}
+
+@keyframes pulse {
+  0% {
+    color: #3848b6;
+    transform: scale(1);
+  }
+  50% {
+    color: #3848b6; /* Highlight color */
+    transform: scale(1.05);
+  }
+  100% {
+    color: #3848b6;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Styles */
+
+/* For screens max-width 600px (Small desktops/tablets) */
+@media screen and (max-width: 600px) {
+  .section7 > .wave-up {
+    top: 0;
+  }
+
+  .section7 > .wave {
+    bottom: 0;
+  }
+
+  .section7 > .section7-cont {
+    width: 90%;
+    height: 65%;
+    justify-content: center;
+    gap: 6vmax;
+  }
+
+  .section7 > .section7-cont > h1 {
+    font-size: 3vmax;
+  }
+
+  .section7 > .section7-cont > .button {
+    font-size: 1.75vmax;
+    padding: 1.5vh 5vw;
+  }
+
+  .section7 > .section7-cont > .content-strip {
+    flex-direction: column;
+    height: 10%;
+  }
+
+  .section7 > .section7-cont > .content-strip > .p-left {
+    font-size: 1.75vmax;
+  }
+
+  .section7 > .section7-cont > .content-strip > .p-right {
+    font-size: 1.6vmax;
+    padding: 0.5vmax 1vmax;
+  }
+
+  .section7 > .section7-cont > .button > .button__icon-wrapper {
+    width: 2.5vmax;
+    height: 2.5vmax;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .section7 > .wave-up {
+    top: 0;
+  }
+
+  .section7 > .wave {
+    bottom: 0;
+  }
+
+  .section7 > .section7-cont {
+    width: 90%;
+    height: 65%;
+    justify-content: center;
+    gap: 6vmax;
+  }
+
+  .section7 > .section7-cont > h1 {
+    font-size: 3vmax;
+  }
+
+  .section7 > .section7-cont > .button {
+    font-size: 1.75vmax;
+    padding: 1.5vh 5vw;
+  }
+
+  .section7 > .section7-cont > .content-strip {
+    flex-direction: column;
+    height: 10%;
+  }
+
+  .section7 > .section7-cont > .content-strip > .p-left {
+    font-size: 1.75vmax;
+  }
+
+  .section7 > .section7-cont > .content-strip > .p-right {
+    font-size: 1.6vmax;
+    padding: 0.5vmax 1vmax;
+  }
+
+  .section7 > .section7-cont > .button > .button__icon-wrapper {
+    width: 2.5vmax;
+    height: 2.5vmax;
+  }
+}

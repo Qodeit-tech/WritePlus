@@ -1,0 +1,210 @@
+.section5 {
+  width: 100%;
+  height: 120vh;
+  background-image: radial-gradient(
+    circle at top right,
+    rgb(125, 155, 223) 0%,
+    rgb(125, 155, 223) 14.286%,
+    rgb(114, 141, 216) 14.286%,
+    rgb(114, 141, 216) 28.572%,
+    rgb(102, 127, 209) 28.572%,
+    rgb(102, 127, 209) 42.858%,
+    rgb(91, 114, 203) 42.858%,
+    rgb(91, 114, 203) 57.144%,
+    rgb(79, 100, 196) 57.144%,
+    rgb(79, 100, 196) 71.43%,
+    rgb(68, 86, 189) 71.43%,
+    rgb(68, 86, 189) 85.716%,
+    rgb(56, 72, 182) 85.716%,
+    rgb(56, 72, 182) 100.002%
+  );
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section5 > .wave-up {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.section5 > .wave {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.section5 > .left {
+  width: 40%;
+  height: 75%;
+  padding: 4vmax;
+}
+
+.section5 > .left > img {
+  width: 100%;
+  height: 100%;
+}
+
+.section5 > .right {
+  width: 60%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 2.5vh;
+  color: #f0f0f0;
+  padding-right: 1vmax;
+}
+
+.section5 > .right > h1 {
+  letter-spacing: 0.1vmax;
+  font-size: 2.5vmax;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.section5 > .right > h3 {
+  font-weight: 300;
+  font-size: 1.1vmax;
+  backdrop-filter: blur(10px);
+}
+
+.section5 > .right > .section5-list {
+  height: 30%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  backdrop-filter: blur(10px);
+}
+
+.section5 > .right > .section5-list > .list-points {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  gap: 0.75vmax;
+}
+
+.section5 > .right > .section5-list > .list-points > .check {
+  height: 50%;
+}
+
+.section5 > .right > .section5-list > .list-points > p {
+  font-size: 1.1vmax;
+  font-weight: 500;
+}
+
+.section5 > .right > p {
+  font-weight: 300;
+  font-size: 1.1vmax;
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .section5 {
+    flex-direction: column;
+  }
+
+  .section5 > .left {
+    width: 90%;
+    height: 60%;
+  }
+
+  .section5 > .left > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .section5 > .right {
+    width: 90%;
+    height: 60%;
+    align-items: center;
+    justify-content: start;
+    gap: 3vmax;
+  }
+
+  .section5 > .right > h1 {
+    font-size: 2.75vmax;
+    text-align: center;
+  }
+
+  .section5 > .right > h3 {
+    font-size: 1.5vmax;
+    text-align: center;
+  }
+
+  .section5 > .right > .section5-list > .list-points {
+    gap: 2vh;
+  }
+
+  .section5 > .right > .section5-list > .list-points > .check {
+    height: 40%;
+  }
+
+  .section5 > .right > .section5-list > .list-points > p {
+    font-size: 1.4vmax;
+  }
+
+  .section5 > .right > p {
+    font-size: 1.5vmax;
+  }
+}
+
+/* For screens max-width 400px (Mobile) */
+@media screen and (max-width: 400px) {
+ .section5 {
+    flex-direction: column;
+  }
+
+  .section5 > .left {
+    width: 90%;
+    height: 60%;
+  }
+
+  .section5 > .left > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .section5 > .right {
+    width: 90%;
+    height: 60%;
+    align-items: center;
+    justify-content: start;
+    gap: 3vmax;
+  }
+
+  .section5 > .right > h1 {
+    font-size: 2.75vmax;
+    text-align: center;
+  }
+
+  .section5 > .right > h3 {
+    font-size: 1.5vmax;
+    text-align: center;
+  }
+
+  .section5 > .right > .section5-list > .list-points {
+    gap: 2vh;
+  }
+
+  .section5 > .right > .section5-list > .list-points > .check {
+    height: 40%;
+  }
+
+  .section5 > .right > .section5-list > .list-points > p {
+    font-size: 1.4vmax;
+  }
+
+  .section5 > .right > p {
+    font-size: 1.5vmax;
+  }
+}
