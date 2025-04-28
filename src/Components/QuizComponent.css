@@ -272,6 +272,7 @@
   text-overflow: ellipsis;
   transition: all 0.3s;
   font-family: "Poppins", sans-serif;
+  position: relative;
 }
 
 .cta-button .button__icon-wrapper {
@@ -285,6 +286,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .cta-button:hover {
@@ -423,11 +425,11 @@
     width: 100%;
   }
 
-  .intro-text-box{
+  .intro-text-box {
     font-size: 1.5vmax;
   }
 
-  .solution-text{
+  .solution-text {
     font-size: 1.5vmax;
   }
 }

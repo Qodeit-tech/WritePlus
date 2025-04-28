@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { quizData } from "../quizData";
 import "./QuizComponent.css";
@@ -10,6 +10,45 @@ const QuizComponent = () => {
   const [showResult, setShowResult] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
+  const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";
+
+  useEffect(() => {
+    if (!showPopup) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showPopup]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const handleClosePopup = () => {
+    setShowConfirm(true);
+  };
+
+  const confirmClose = (shouldClose) => {
+    setShowConfirm(false);
+    if (shouldClose) {
+      setShowPopup(false);
+    }
+  };
 
   const startQuiz = () => {
     setQuizStarted(true);
@@ -40,6 +79,12 @@ const QuizComponent = () => {
     setShowResult(false);
     setQuizStarted(false);
     setSelectedOption(null);
+  };
+
+  const handleCtaClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowPopup(true);
   };
 
   if (!quizStarted) {
@@ -78,12 +123,12 @@ const QuizComponent = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <img src={Warn} className="warning" alt="" />
+          <img src={Warn} className="warning" alt="Warning" />
           <h2 className="headline">{quizData.result.headline}</h2>
           <p className="subheadline">{quizData.result.subheadline}</p>
           <p className="solution-text">{quizData.result.solutionText}</p>
           <div className="cta-section">
-            <motion.button className="cta-button">
+            <button className="cta-button" onClick={handleCtaClick}>
               <span className="button__icon-wrapper">
                 <svg
                   viewBox="0 0 14 15"
@@ -111,14 +156,91 @@ const QuizComponent = () => {
                 </svg>
               </span>
               Get WritePlus for Just $49.99 — Stop Falling Behind Today
-            </motion.button>
+            </button>
             <p className="cta-subtext">{quizData.result.ctaSubtext}</p>
           </div>
 
-          <motion.button className="retake-quiz-btn" onClick={resetQuiz}>
+          <motion.button
+            className="retake-quiz-btn"
+            onClick={resetQuiz}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Retake Quiz
           </motion.button>
         </motion.div>
+
+        {/* Payment Popup */}
+        <AnimatePresence>
+          {showPopup && (
+            <motion.div
+              className="popup-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="popup-container"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+              >
+                <button
+                  className="popup-close"
+                  onClick={handleClosePopup}
+                  aria-label="Close popup"
+                >
+                  &times;
+                </button>
+
+                {!showConfirm ? (
+                  <>
+                    <h2>Limited Time Offer!</h2>
+                    <div className="price-animation">
+                      <div className="original-price">$99.99</div>
+                      <div className="discounted-price">$49.99</div>
+                    </div>
+                    <p className="time-left">
+                      Offer expires in: <span>{formatTime(timeLeft)}</span>
+                    </p>
+                    <p className="discount-text">50% OFF - Today Only!</p>
+                    <motion.button
+                      className="payment-button"
+                      onClick={() => window.open(paymentUrl, "_blank")}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Get Instant Access Now
+                    </motion.button>
+                  </>
+                ) : (
+                  <div className="confirmation-dialog">
+                    <h3>Are you sure you want to leave?</h3>
+                    <p>This special offer won't last forever!</p>
+                    <div className="confirmation-buttons">
+                      <motion.button
+                        className="confirm-button confirm-yes"
+                        onClick={() => confirmClose(true)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        Yes, I'll miss out
+                      </motion.button>
+                      <motion.button
+                        className="confirm-button confirm-no"
+                        onClick={() => confirmClose(false)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        No, I want the deal!
+                      </motion.button>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }
