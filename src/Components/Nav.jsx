@@ -10,8 +10,9 @@ const Nav = ({ navColor }) => {
       </div>
       <div className="links">
         <a href="">Home</a>
-        <a href="">About</a>
-        <a href="">Contact</a>
+        <a href="#about-us">About Us</a>
+        <a href="#why-us">Why Us</a>
+        <a href="/quiz">Take Quiz</a>
       </div>
     </nav>
   );

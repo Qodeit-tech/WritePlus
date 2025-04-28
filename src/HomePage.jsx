@@ -9,6 +9,7 @@ import Section5 from "./Components/Section5";
 import Section6 from "./Components/Section6";
 import Section7 from "./Components/Section7";
 import Footer from "./Components/Footer";
+import QuizPrompt from "./Components/QuizPrompt"; // Add this import
 
 const HomePage = () => {
   const [navColor, setNavColor] = useState("rgba(255, 255, 255, 0.3)");
@@ -42,10 +43,10 @@ const HomePage = () => {
       <section data-bg-color="blue">
         <Section1 />
       </section>
-      <section className="white-section" data-bg-color="white">
+      <section className="white-section" data-bg-color="white" id="about-us">
         <Section2 />
       </section>
-      <section data-bg-color="blue">
+      <section data-bg-color="blue" id="why-us">
         <Section3 />
       </section>
       <section className="white-section" data-bg-color="white">
@@ -57,10 +58,11 @@ const HomePage = () => {
       <section className="white-section" data-bg-color="white">
         <Section6 />
       </section>
-      <section data-bg-color="blue">
+      <section data-bg-color="blue" id="quiz-section">
         <Section7 />
       </section>
       <Footer />
+      <QuizPrompt /> {/* Add this component */}
     </main>
   );
 };

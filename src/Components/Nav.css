@@ -39,8 +39,8 @@ nav > .links {
 
 nav > .links > a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 400;
+  color: rgba(255, 255, 255);
+  font-weight: 500;
   font-size: 1.1vmax;
 }
 

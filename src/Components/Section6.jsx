@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Section6.css";
 import Student from "../assets/section6-boy.png";
 import Unlock from "../assets/unlocking.png";
@@ -7,6 +7,45 @@ import Pressure from "../assets/pressure.png";
 import Know from "../assets/know.png";
 
 const Section6 = () => {
+const [showPopup, setShowPopup] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
+  const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";
+
+  useEffect(() => {
+    if (!showPopup) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showPopup]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const handleClosePopup = () => {
+    setShowConfirm(true);
+  };
+
+  const confirmClose = (shouldClose) => {
+    setShowConfirm(false);
+    if (shouldClose) {
+      setShowPopup(false);
+    }
+  };
   return (
     <div className="section6">
       <h1>If You Ignore This, You’ll Regret It. Probably Forever!</h1>
@@ -55,7 +94,7 @@ const Section6 = () => {
             </p>
           </div>
           <div className="box3-right">
-            <button className="button">
+            <button className="button" onClick={() => setShowPopup(true)}>
               <span className="button__icon-wrapper">
                 <svg
                   viewBox="0 0 14 15"
@@ -88,6 +127,55 @@ const Section6 = () => {
           </div>
         </div>
       </div>
+      {/* Payment Popup */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-container">
+            <button className="popup-close" onClick={handleClosePopup}>
+              &times;
+            </button>
+
+            {!showConfirm ? (
+              <>
+                <h2>Limited Time Offer!</h2>
+                <div className="price-animation">
+                  <div className="original-price">$99.99</div>
+                  <div className="discounted-price">$49.99</div>
+                </div>
+                <p className="time-left">
+                  Offer expires in: <span>{formatTime(timeLeft)}</span>
+                </p>
+                <p className="discount-text">50% OFF - Today Only!</p>
+                <button
+                  className="payment-button"
+                  onClick={() => window.open(paymentUrl, "_blank")}
+                >
+                  Get Instant Access Now
+                </button>
+              </>
+            ) : (
+              <div className="confirmation-dialog">
+                <h3>Are you sure you want to leave?</h3>
+                <p>This special offer won't last forever!</p>
+                <div className="confirmation-buttons">
+                  <button
+                    className="confirm-button confirm-yes"
+                    onClick={() => confirmClose(true)}
+                  >
+                    Yes, I'll miss out
+                  </button>
+                  <button
+                    className="confirm-button confirm-no"
+                    onClick={() => confirmClose(false)}
+                  >
+                    No, I want the deal!
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

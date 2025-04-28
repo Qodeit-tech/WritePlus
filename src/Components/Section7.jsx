@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Section7.css";
 import WaveDown from "../assets/wave-down.png";
 import Wave from "../assets/wave.png";
 import Grads from "../assets/grads.png";
 
 const Section7 = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
   const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";
+
+  useEffect(() => {
+    if (!showPopup) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showPopup]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const handleClosePopup = () => {
+    setShowConfirm(true);
+  };
+
+  const confirmClose = (shouldClose) => {
+    setShowConfirm(false);
+    if (shouldClose) {
+      setShowPopup(false);
+    }
+  };
 
   return (
     <div className="section7">
@@ -16,10 +54,7 @@ const Section7 = () => {
         <h1>
           Join the 5,000+ Students <br /> Who Refused to Settle for Struggle
         </h1>
-        <button
-          className="button"
-          onClick={() => window.open(paymentUrl, "_blank")}
-        >
+        <button className="button" onClick={() => setShowPopup(true)}>
           <span className="button__icon-wrapper">
             <svg
               viewBox="0 0 14 15"
@@ -55,6 +90,56 @@ const Section7 = () => {
           </p>
         </div>
       </div>
+
+      {/* Payment Popup */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-container">
+            <button className="popup-close" onClick={handleClosePopup}>
+              &times;
+            </button>
+
+            {!showConfirm ? (
+              <>
+                <h2>Limited Time Offer!</h2>
+                <div className="price-animation">
+                  <div className="original-price">$99.99</div>
+                  <div className="discounted-price">$49.99</div>
+                </div>
+                <p className="time-left">
+                  Offer expires in: <span>{formatTime(timeLeft)}</span>
+                </p>
+                <p className="discount-text">50% OFF - Today Only!</p>
+                <button
+                  className="payment-button"
+                  onClick={() => window.open(paymentUrl, "_blank")}
+                >
+                  Get Instant Access Now
+                </button>
+              </>
+            ) : (
+              <div className="confirmation-dialog">
+                <h3>Are you sure you want to leave?</h3>
+                <p>This special offer won't last forever!</p>
+                <div className="confirmation-buttons">
+                  <button
+                    className="confirm-button confirm-yes"
+                    onClick={() => confirmClose(true)}
+                  >
+                    Yes, I'll miss out
+                  </button>
+                  <button
+                    className="confirm-button confirm-no"
+                    onClick={() => confirmClose(false)}
+                  >
+                    No, I want the deal!
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
