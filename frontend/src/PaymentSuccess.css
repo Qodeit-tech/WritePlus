@@ -1,0 +1,123 @@
+.payment {
+  width: 100%;
+  height: 100vh;
+  background-image: radial-gradient(
+    circle at top right,
+    rgb(125, 155, 223) 0%,
+    rgb(125, 155, 223) 14.286%,
+    rgb(114, 141, 216) 14.286%,
+    rgb(114, 141, 216) 28.572%,
+    rgb(102, 127, 209) 28.572%,
+    rgb(102, 127, 209) 42.858%,
+    rgb(91, 114, 203) 42.858%,
+    rgb(91, 114, 203) 57.144%,
+    rgb(79, 100, 196) 57.144%,
+    rgb(79, 100, 196) 71.43%,
+    rgb(68, 86, 189) 71.43%,
+    rgb(68, 86, 189) 85.716%,
+    rgb(56, 72, 182) 85.716%,
+    rgb(56, 72, 182) 100.002%
+  );
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment > .p-wave-up {
+  width: 100%;
+  position: absolute;
+  top: -9%;
+}
+
+.payment > .p-wave-down {
+  width: 100%;
+  position: absolute;
+  bottom: -8%;
+}
+
+.payment > .payment-cont {
+  width: 50%;
+  height: 80vh;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1vmax;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1vmax;
+  padding: 2vmax;
+}
+
+.payment > .payment-cont > .check{
+  height: 25%;
+}
+
+.payment > .payment-cont > h1 {
+  font-size: 2.5vmax;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.05vmax;
+}
+
+.payment > .payment-cont > .p-text {
+  color: white;
+  font-size: 1.25vmax;
+  letter-spacing: 0.05vmax;
+}
+
+.payment > .payment-cont > form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.payment > .payment-cont > form > .input-group {
+  display: flex;
+  width: 80%;
+}
+
+.payment > .payment-cont > form > .input-group > .input {
+  flex: 1;
+  height: 8vh;
+  padding: 0 1rem;
+  color: #fff;
+  font-size: 1.1vmax;
+  border: 1px solid #ffffff;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  background-color: transparent;
+}
+
+.payment > .payment-cont > form > .input-group > .input::placeholder {
+  color: #ffffff;
+}
+
+.payment > .payment-cont > form > .input-group > .input:focus,
+.payment > .payment-cont > form > .input-group > .input:focus-visible {
+  border-color: #ffffff;
+  outline: none;
+}
+
+.payment > .payment-cont > form > .input-group > .button--submit {
+  padding: 0 1rem;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  background-color: #ffffff;
+  color: #3848b6;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.payment > .payment-cont > form > .input-group > .button--submit:hover {
+  background-color: #f1f1f1;
+}
+
+.payment > .payment-cont > p {
+  color: white;
+  font-size: 1rem;
+}

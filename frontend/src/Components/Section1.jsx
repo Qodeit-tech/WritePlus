@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Section1.css";
-import Cover from "../assets/ebook.png";
 import Wave from "../assets/wave.png";
+import Mockup3 from "../assets/mockup3.png";
+
 const Section1 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -86,7 +87,7 @@ const Section1 = () => {
           </button>
         </div>
         <div className="right">
-          <img src={Cover} alt="" />
+          <img src={Mockup3} alt="" />
         </div>
       </div>
       <img src={Wave} alt="" />
