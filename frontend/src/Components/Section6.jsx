@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Section6.css";
-import Student from "../assets/section6-boy.png";
-import Unlock from "../assets/unlocking.png";
-import Career from "../assets/career.png";
-import Pressure from "../assets/pressure.png";
-import Know from "../assets/know.png";
+import Student from "../assets/section6-boy.webp";
+import Unlock from "../assets/unlocking.webp";
+import Career from "../assets/career.webp";
+import Pressure from "../assets/pressure.webp";
+import Know from "../assets/know.webp";
 
 const Section6 = () => {
-const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
   const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";

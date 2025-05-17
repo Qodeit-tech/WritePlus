@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { quizData } from "../quizData";
 import "./QuizComponent.css";
-import Warn from "../assets/warning.png";
+import Warn from "../assets/warning.webp";
 
 const QuizComponent = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

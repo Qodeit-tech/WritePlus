@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./PaymentSuccess.css";
-import Wave1 from "./assets/wave.png";
-import Wave2 from "./assets/wave-down.png";
-import Check from "./assets/check.png";
+import Wave1 from "./assets/wave.webp";
+import Wave2 from "./assets/wave-down.webp";
+import Check from "./assets/check.webp";
 
 const PaymentSuccess = () => {
   const [email, setEmail] = useState("");

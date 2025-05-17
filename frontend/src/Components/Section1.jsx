@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Section1.css";
-import Wave from "../assets/wave.png";
-import Mockup3 from "../assets/mockup3.png";
+import Wave from "../assets/wave.webp";
+import Mockup3 from "../assets/mockup3.webp";
 
 const Section1 = () => {
   const [showPopup, setShowPopup] = useState(false);

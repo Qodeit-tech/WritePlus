@@ -182,7 +182,7 @@ app.post("/api/send-ebook", async (req, res) => {
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://yourdomain.com/images/writeplus-logo.png" alt="WritePlus Logo" width="200" style="max-width:100%; height:auto;" />
+            <img src="https://yourdomain.com/images/writeplus-logo.webp" alt="WritePlus Logo" width="200" style="max-width:100%; height:auto;" />
         </div>
 
         <div class="hero">

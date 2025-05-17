@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Section7.css";
-import WaveDown from "../assets/wave-down.png";
-import Wave from "../assets/wave.png";
-import Grads from "../assets/grads.png";
+import WaveDown from "../assets/wave-down.webp";
+import Wave from "../assets/wave.webp";
+import Grads from "../assets/grads.webp";
 
 const Section7 = () => {
   const [showPopup, setShowPopup] = useState(false);

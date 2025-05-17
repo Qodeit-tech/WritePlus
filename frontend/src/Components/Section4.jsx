@@ -1,7 +1,7 @@
 import React from "react";
 import "./Section4.css";
 
-import Check2 from "../assets/check2.png";
+import Check2 from "../assets/check2.webp";
 
 const Section4 = () => {
   return (

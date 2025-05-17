@@ -1,10 +1,10 @@
 import React from "react";
 import "./Section2.css";
-import Speed from "../assets/performance.png";
-import Trust from "../assets/trust.png";
-import Scientific from "../assets/scientific.png";
-import WaveDown from "../assets/wave-down.png";
-import Img from "../assets/section2.png"
+import Speed from "../assets/performance.webp";
+import Trust from "../assets/trust.webp";
+import Scientific from "../assets/scientific.webp";
+import WaveDown from "../assets/wave-down.webp";
+import Img from "../assets/section2.webp";
 
 const Section2 = () => {
   return (
