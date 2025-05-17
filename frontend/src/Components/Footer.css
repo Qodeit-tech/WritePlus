@@ -98,3 +98,84 @@ footer > .right > .right-box2 > a:hover {
 footer > .right > .right-box2 > a > img {
   width: 15%;
 }
+
+/* Responsive styles for max-width: 600px */
+@media screen and (max-width: 600px) {
+  footer {
+    height: auto;
+    flex-direction: column;
+    padding: 5vmax 0;
+    gap: 4vmax;
+  }
+
+  footer > .left {
+    width: 90%;
+    height: auto;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+    gap: 3vmax;
+  }
+
+  footer > .left > .logo {
+    width: 50%;
+    height: 20vh;
+  }
+
+  footer > .left > p {
+    width: 100%;
+    font-size: 2vmax;
+  }
+
+  footer > .right {
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    gap: 4vmax;
+  }
+
+  footer > .right > .right-box,
+  footer > .right > .right-box2 {
+    width: 100%;
+    height: auto;
+    gap: 2vmax;
+  }
+
+  footer > .right > .right-box > h3,
+  footer > .right > .right-box2 > h3 {
+    font-size: 2.5vmax;
+  }
+
+  footer > .right > .right-box > a {
+    font-size: 2vmax;
+  }
+
+  footer > .right > .right-box2 > a > img {
+    width: 20%;
+  }
+}
+
+/* Responsive styles for max-width: 400px */
+@media screen and (max-width: 400px) {
+  footer > .left > .logo {
+    width: 60%;
+    height: 15vh;
+  }
+
+  footer > .left > p {
+    font-size: 2.5vmax;
+  }
+
+  footer > .right > .right-box > h3,
+  footer > .right > .right-box2 > h3 {
+    font-size: 3vmax;
+  }
+
+  footer > .right > .right-box > a {
+    font-size: 2.5vmax;
+  }
+
+  footer > .right > .right-box2 > a > img {
+    width: 20%;
+  }
+}

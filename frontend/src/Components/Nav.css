@@ -80,7 +80,7 @@ nav > .links > a {
     flex-direction: column;
     gap: 0;
     padding: 3vmax 0;
-    background: #f5f5f5; /* Solid white background */
+    background: #f5f5f5; 
     backdrop-filter: none;
     border-radius: 3vmax;
     transform: translateY(-150%);
