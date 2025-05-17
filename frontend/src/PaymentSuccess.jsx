@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import axios from "axios"; 
 import "./PaymentSuccess.css";
 import Wave1 from "./assets/wave.webp";
 import Wave2 from "./assets/wave-down.webp";
@@ -6,17 +8,57 @@ import Check from "./assets/check.webp";
 
 const PaymentSuccess = () => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState({ message: "", isError: false });
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+
+    if (!email || !email.includes("@")) {
+      setStatus({ message: "Please enter a valid email", isError: true });
+      return;
+    }
+
+    setIsLoading(true);
+    setStatus({ message: "Sending your ebook...", isError: false });
 
     try {
-      await axios.post("http://localhost:5005/api/send-ebook", { email });
-      setStatus("Ebook sent successfully! Check your inbox.");
+      const response = await axios.post(
+        "https://writeplus.in/api/send-ebook",
+        { email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          timeout: 10000,
+        }
+      );
+
+      if (response.data.success) {
+        setStatus({
+          message: "Ebook sent successfully! Check your inbox.",
+          isError: false,
+        });
+        setEmail("");
+        setTimeout(() => {
+          navigate("/"); 
+        }, 2000);
+      } else {
+        setStatus({
+          message: response.data.error || "Failed to send ebook",
+          isError: true,
+        });
+      }
     } catch (error) {
-      setStatus("Failed to send ebook. Please try again.");
+      console.error("Error sending ebook:", error);
+      const errorMessage =
+        error.response?.data?.error ||
+        error.message ||
+        "Failed to connect to server";
+      setStatus({ message: errorMessage, isError: true });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,12 +80,26 @@ const PaymentSuccess = () => {
               placeholder="Enter Your Email"
               autoComplete="off"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setStatus({ message: "", isError: false }); 
+              }}
+              required
             />
-            <input className="button--submit" value="Subscribe" type="submit" />
+            <button
+              className="button--submit"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Sending..." : "Get My Ebook"}
+            </button>
           </div>
         </form>
-        <p>{status}</p>
+        {status.message && (
+          <p className={status.isError ? "error-message" : "success-message"}>
+            {status.message}
+          </p>
+        )}
       </div>
     </section>
   );

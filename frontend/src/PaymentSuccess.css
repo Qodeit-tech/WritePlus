@@ -121,3 +121,81 @@
   color: white;
   font-size: 1rem;
 }
+
+@media (max-width: 600px) {
+  .payment > .payment-cont {
+    width: 90%;
+    padding: 1.5vmax;
+  }
+
+  .payment > .payment-cont > .check{
+    height: 20%;
+    margin-bottom: 2vh;
+  }
+
+  .payment > .payment-cont > h1 {
+    font-size: 3vmax;
+    text-align: center;
+  }
+
+  .payment > .payment-cont > .p-text {
+    font-size: 1.75vmax;
+    margin-bottom: 2vh;
+  }
+
+  .payment > .payment-cont > form{
+    width: 100%;
+  }
+
+  .payment > .payment-cont > form > .input-group {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .payment > .payment-cont > form > .input-group > .input {
+    height: 6vh;
+    font-size: 1rem;
+  }
+
+  .payment > .payment-cont > form > .input-group > .button--submit {
+    font-size: 14px;
+  }
+}
+
+/* Responsive styles for max-width 400px */
+@media (max-width: 400px) {
+  .payment > .payment-cont {
+    width: 90%;
+    padding: 1.5vmax;
+  }
+
+  .payment > .payment-cont > h1 {
+    font-size: 3vmax;
+    text-align: center;
+  }
+
+  .payment > .payment-cont > .p-text {
+    font-size: 1.75vmax;
+    margin-bottom: 2vh;
+  }
+
+  .payment > .payment-cont > form{
+    width: 100%;
+  }
+
+  .payment > .payment-cont > form > .input-group {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .payment > .payment-cont > form > .input-group > .input {
+    height: 6vh;
+    font-size: 1rem;
+  }
+
+  .payment > .payment-cont > form > .input-group > .button--submit {
+    font-size: 14px;
+  }
+}
