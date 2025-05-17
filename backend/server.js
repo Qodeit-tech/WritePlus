@@ -7,11 +7,18 @@ const fs = require("fs");
 require("dotenv").config();
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://writeplus.in",
-  })
-);
+
+const corsOptions = {
+  origin: [
+    "https://www.writeplus.in", // Add www version
+    "https://writeplus.in", // Non-www version
+  ],
+  methods: ["POST", "GET", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Verify email template exists
