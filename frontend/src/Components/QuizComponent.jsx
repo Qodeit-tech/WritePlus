@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { quizData } from "../quizData";
 import "./QuizComponent.css";
+import "./Section7.css";
 import Warn from "../assets/warning.webp";
 
 const QuizComponent = () => {

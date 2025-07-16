@@ -19,6 +19,7 @@ nav > .logo {
   height: 100%;
   border-radius: 3vmax;
   padding: 0.5vmax;
+  cursor: pointer;
 }
 
 nav > .logo > img {

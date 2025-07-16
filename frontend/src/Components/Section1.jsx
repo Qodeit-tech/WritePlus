@@ -2,15 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./Section1.css";
 import Wave from "../assets/wave.webp";
 import Mockup3 from "../assets/mockup3.webp";
+import { useNavigate } from "react-router-dom";
 
 const Section1 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
-  const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";
+  const [isPayPalVisible, setIsPayPalVisible] = useState(false);
+  const [paypalRendered, setPaypalRendered] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!showPopup) return;
+
+    setTimeLeft(30 * 60);
+    setIsPayPalVisible(false);
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -41,15 +47,68 @@ const Section1 = () => {
     setShowConfirm(false);
     if (shouldClose) {
       setShowPopup(false);
+      setPaypalRendered(false);
     }
   };
+
+  useEffect(() => {
+    if (!isPayPalVisible || paypalRendered) return;
+
+    const renderButton = () => {
+      const containerId = "js-sdk-container-XB23HAYHKCDBG";
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.error("PayPal container not found:", containerId);
+        return;
+      }
+
+      container.innerHTML = ""; // Clear old button if re-rendering
+
+      if (window.paypal) {
+        window.paypal
+          .HostedButtons({
+            hostedButtonId: "XB23HAYHKCDBG",
+            onApprove: async (data, actions) => {
+              try {
+                const order = await actions.order.capture();
+                console.log("Transaction completed:", order);
+                localStorage.setItem("ebook_paid", "true");
+                navigate("/payment-success");
+              } catch (err) {
+                console.error("Payment processing error:", err);
+                alert(
+                  "Something went wrong after payment. Please contact support."
+                );
+              }
+            },
+          })
+          .render(`#${containerId}`);
+        setPaypalRendered(true);
+      } else {
+        console.error("PayPal SDK not available.");
+      }
+    };
+
+    const existingScript = document.getElementById("paypal-sdk");
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src =
+        "https://www.paypal.com/sdk/js?client-id=BAABgtWBIGjoZSIC9TQAa0gsEMaVjI4_K3ZVrJYAmyHkNa0iqnW-Zt8-X5V7CgOr-6GOJ4qS7AvqGNW9Dc&components=hosted-buttons&disable-funding=venmo&currency=USD";
+      script.id = "paypal-sdk";
+      script.onload = renderButton;
+      document.body.appendChild(script);
+    } else {
+      renderButton();
+    }
+  }, [isPayPalVisible, paypalRendered, navigate]);
 
   return (
     <div className="section1">
       <div className="section1-cont">
         <div className="left">
           <h1>Master in Days What Others Struggle with for Years</h1>
-          <h2> The Underground Research Method Trusted by 5,000+ Scholars</h2>
+          <h2>The Underground Research Method Trusted by 5,000+ Scholars</h2>
           <p>
             A hands-on eBook that unleashes the AI-powered workflows top PhD
             students use to dominate their academic careers — without burnout,
@@ -69,7 +128,6 @@ const Section1 = () => {
                   fill="currentColor"
                 ></path>
               </svg>
-
               <svg
                 viewBox="0 0 14 15"
                 fill="none"
@@ -91,6 +149,7 @@ const Section1 = () => {
         </div>
       </div>
       <img src={Wave} alt="" />
+
       {/* Payment Popup */}
       {showPopup && (
         <div className="popup-overlay">
@@ -110,12 +169,21 @@ const Section1 = () => {
                   Offer expires in: <span>{formatTime(timeLeft)}</span>
                 </p>
                 <p className="discount-text">50% OFF - Today Only!</p>
-                <button
-                  className="payment-button"
-                  onClick={() => window.open(paymentUrl, "_blank")}
-                >
-                  Get Instant Access Now
-                </button>
+
+                {!isPayPalVisible && (
+                  <button
+                    className="payment-button"
+                    onClick={() => setIsPayPalVisible(true)}
+                  >
+                    Get Instant Access Now
+                  </button>
+                )}
+
+                {isPayPalVisible && (
+                  <div className="paypal-hosted-button">
+                    <div id="js-sdk-container-XB23HAYHKCDBG"></div>
+                  </div>
+                )}
               </>
             ) : (
               <div className="confirmation-dialog">
