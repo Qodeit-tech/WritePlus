@@ -8,10 +8,12 @@ require("dotenv").config();
 
 const app = express();
 
+// --- CORS Configuration ---
 const corsOptions = {
   origin: [
-    "https://www.writeplus.in", // Add www version
-    "https://writeplus.in", // Non-www version
+    "http://localhost:5173",
+    "https://www.writeplus.in", // With www
+    "https://writeplus.in", // Without www
   ],
   methods: ["POST", "GET", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
@@ -21,37 +23,31 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-// Verify email template exists
+// --- Load and validate email template ---
 const templatePath = path.join(__dirname, "email-template.html");
 if (!fs.existsSync(templatePath)) {
-  console.error("Email template not found at:", templatePath);
+  console.error("❌ Email template not found at:", templatePath);
   process.exit(1);
 }
 const emailTemplate = fs.readFileSync(templatePath, "utf8");
 
-// Verify ebook exists
+// --- Load and validate eBook PDF ---
 const ebookPath = path.join(__dirname, "ebook.pdf");
 if (!fs.existsSync(ebookPath)) {
-  console.error("Ebook file not found at:", ebookPath);
+  console.error("❌ Ebook file not found at:", ebookPath);
   process.exit(1);
 }
 
-// Email sending endpoint
+// --- Email Sending Route ---
 app.post("/api/send-ebook", async (req, res) => {
   const { email } = req.body;
 
-  if (!email) {
-    return res.status(400).json({ error: "Email is required" });
-  }
-
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: "Invalid email format" });
+  // Basic email validation
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: "Invalid or missing email address" });
   }
 
   try {
-    // Create transporter with better configuration
     const transporter = nodemailer.createTransport({
       service: "gmail",
       host: "smtp.gmail.com",
@@ -63,7 +59,6 @@ app.post("/api/send-ebook", async (req, res) => {
       },
     });
 
-    // Verify connection
     await transporter.verify();
 
     const mailOptions = {
@@ -79,32 +74,39 @@ app.post("/api/send-ebook", async (req, res) => {
         },
       ],
     };
-    // Send email with timeout
+
     const sendPromise = transporter.sendMail(mailOptions);
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Email sending timeout")), 15000)
+      setTimeout(() => reject(new Error("Email sending timeout")), 30000)
     );
+
     await Promise.race([sendPromise, timeoutPromise]);
+
     res.json({ success: true, message: "Ebook sent successfully" });
   } catch (error) {
-    console.error("Detailed email sending error:", {
-      error: error.message,
+    console.error("❌ Email sending error:", {
+      message: error.message,
       stack: error.stack,
-      email: email,
+      email,
       time: new Date().toISOString(),
     });
-    let errorMessage = "Failed to send email";
-    if (error.message.includes("Invalid login")) {
-      errorMessage = "Email server authentication failed";
-    } else if (error.message.includes("timeout")) {
-      errorMessage = "Email server response timeout";
-    }
+
+    const knownErrors = {
+      "Invalid login": "Email server authentication failed",
+      timeout: "Email server response timeout",
+    };
+
+    const errorKey = Object.keys(knownErrors).find((key) =>
+      error.message.includes(key)
+    );
+
     res.status(500).json({
-      error: "Failed to send email",
+      error: knownErrors[errorKey] || "Failed to send email",
     });
   }
 });
 
+// --- Start Server ---
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

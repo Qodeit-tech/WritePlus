@@ -3,15 +3,22 @@ import "./Section7.css";
 import WaveDown from "../assets/wave-down.webp";
 import Wave from "../assets/wave.webp";
 import Grads from "../assets/grads.webp";
+import { useNavigate } from "react-router-dom";
 
 const Section7 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
-  const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";
+  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes
+  const [isPayPalVisible, setIsPayPalVisible] = useState(false);
+  const [paypalRendered, setPaypalRendered] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!showPopup) return;
+
+    setTimeLeft(30 * 60); // Reset countdown
+    setIsPayPalVisible(false); // Reset PayPal visibility
+    setPaypalRendered(false); // Ensure button can re-render
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -42,8 +49,61 @@ const Section7 = () => {
     setShowConfirm(false);
     if (shouldClose) {
       setShowPopup(false);
+      setPaypalRendered(false);
     }
   };
+
+  useEffect(() => {
+    if (!isPayPalVisible || paypalRendered) return;
+
+    const containerId = "js-sdk-container-XB23HAYHKCDBG";
+    const renderButton = () => {
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.error("PayPal container not found:", containerId);
+        return;
+      }
+
+      container.innerHTML = "";
+
+      if (window.paypal) {
+        window.paypal
+          .HostedButtons({
+            hostedButtonId: "XB23HAYHKCDBG",
+            onApprove: async (data, actions) => {
+              try {
+                const order = await actions.order.capture();
+                console.log("Transaction completed:", order);
+                localStorage.setItem("ebook_paid", "true");
+                navigate("/payment-success");
+              } catch (err) {
+                console.error("Payment error:", err);
+                alert(
+                  "Something went wrong after payment. Please contact support."
+                );
+              }
+            },
+          })
+          .render(`#${containerId}`);
+        setPaypalRendered(true);
+      } else {
+        console.error("PayPal SDK not loaded.");
+      }
+    };
+
+    const existingScript = document.getElementById("paypal-sdk");
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src =
+        "https://www.paypal.com/sdk/js?client-id=BAABgtWBIGjoZSIC9TQAa0gsEMaVjI4_K3ZVrJYAmyHkNa0iqnW-Zt8-X5V7CgOr-6GOJ4qS7AvqGNW9Dc&components=hosted-buttons&disable-funding=venmo&currency=USD";
+      script.id = "paypal-sdk";
+      script.onload = renderButton;
+      document.body.appendChild(script);
+    } else {
+      renderButton();
+    }
+  }, [isPayPalVisible, paypalRendered, navigate]);
 
   return (
     <div className="section7">
@@ -110,12 +170,19 @@ const Section7 = () => {
                   Offer expires in: <span>{formatTime(timeLeft)}</span>
                 </p>
                 <p className="discount-text">50% OFF - Today Only!</p>
-                <button
-                  className="payment-button"
-                  onClick={() => window.open(paymentUrl, "_blank")}
-                >
-                  Get Instant Access Now
-                </button>
+                {!isPayPalVisible && (
+                  <button
+                    className="payment-button"
+                    onClick={() => setIsPayPalVisible(true)}
+                  >
+                    Get Instant Access Now
+                  </button>
+                )}
+                {isPayPalVisible && (
+                  <div className="paypal-hosted-button">
+                    <div id="js-sdk-container-XB23HAYHKCDBG"></div>
+                  </div>
+                )}
               </>
             ) : (
               <div className="confirmation-dialog">

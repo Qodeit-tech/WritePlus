@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
-import axios from "axios"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./PaymentSuccess.css";
 import Wave1 from "./assets/wave.webp";
 import Wave2 from "./assets/wave-down.webp";
@@ -11,6 +11,13 @@ const PaymentSuccess = () => {
   const [status, setStatus] = useState({ message: "", isError: false });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const paidToken = localStorage.getItem("ebook_paid");
+    if (paidToken !== "true") {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +38,7 @@ const PaymentSuccess = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          timeout: 10000,
+          timeout: 30000,
         }
       );
 
@@ -40,9 +47,13 @@ const PaymentSuccess = () => {
           message: "Ebook sent successfully! Check your inbox.",
           isError: false,
         });
+
+        // Clear the token after successful use
+        localStorage.removeItem("ebook_paid");
         setEmail("");
+
         setTimeout(() => {
-          navigate("/"); 
+          navigate("/");
         }, 2000);
       } else {
         setStatus({
@@ -82,7 +93,7 @@ const PaymentSuccess = () => {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setStatus({ message: "", isError: false }); 
+                setStatus({ message: "", isError: false });
               }}
               required
             />
