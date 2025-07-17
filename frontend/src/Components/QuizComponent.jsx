@@ -4,6 +4,7 @@ import { quizData } from "../quizData";
 import "./QuizComponent.css";
 import "./Section7.css";
 import Warn from "../assets/warning.webp";
+import Meta from "./Meta";
 
 const QuizComponent = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -88,30 +89,49 @@ const QuizComponent = () => {
     setShowPopup(true);
   };
 
+  const metaContent = !quizStarted
+    ? {
+        title: "Start Research Quiz | WritePlus",
+        description: "Take our quick quiz to improve your academic workflow",
+      }
+    : showResult
+    ? {
+        title: "Your Quiz Results | WritePlus",
+        description: "See your personalized research recommendations",
+      }
+    : {
+        title: `Question ${currentQuestionIndex + 1} | Research Quiz`,
+        description:
+          quizData.questions[currentQuestionIndex].text.slice(0, 100) + "...",
+      };
+
   if (!quizStarted) {
     return (
-      <div className="quiz-root-container">
-        <motion.div
-          className="quiz-intro"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="quiz-title">{quizData.title}</h1>
-          <p className="quiz-description">{quizData.description}</p>
-          <div className="intro-text-box">
-            <p>{quizData.introText}</p>
-          </div>
-          <motion.button
-            className="start-quiz-btn"
-            onClick={startQuiz}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+      <>
+        <Meta {...metaContent} />
+        <div className="quiz-root-container">
+          <motion.div
+            className="quiz-intro"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            Start the Quiz
-          </motion.button>
-        </motion.div>
-      </div>
+            <h1 className="quiz-title">{quizData.title}</h1>
+            <p className="quiz-description">{quizData.description}</p>
+            <div className="intro-text-box">
+              <p>{quizData.introText}</p>
+            </div>
+            <motion.button
+              className="start-quiz-btn"
+              onClick={startQuiz}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Start the Quiz
+            </motion.button>
+          </motion.div>
+        </div>
+      </>
     );
   }
 

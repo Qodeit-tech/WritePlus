@@ -4,6 +4,7 @@ import "./Nav";
 import Nav from "./Nav";
 import ContactImg from "../assets/Contact-us.png";
 import emailjs from "@emailjs/browser";
+import Meta from "./Meta";
 
 
 const Contact = () => {
@@ -36,6 +37,10 @@ const Contact = () => {
 
   return (
     <>
+      <Meta
+        title="Contact the WritePlus Team for Support & Inquiries"
+        description="Have questions about WritePlus? Reach out to our team for quick support, partnership inquiries, or feedback. We're here to help PhD & Master's students succeed."
+      />
       <Nav></Nav>
       <div className="contact">
         <div className="contact-left">

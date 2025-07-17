@@ -5,17 +5,20 @@ import Quiz from "./Components/QuizComponent";
 import Success from "./PaymentSuccess";
 import SmoothScroll from "./SmoothScroll";
 import Contact from "./Components/Contact";
+import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
   return (
-    <SmoothScroll>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/quiz" element={<Quiz />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/payment-success" element={<Success />} />
-      </Routes>
-    </SmoothScroll>
+    <HelmetProvider>
+      <SmoothScroll>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/payment-success" element={<Success />} />
+        </Routes>
+      </SmoothScroll>
+    </HelmetProvider>
   );
 };
 
