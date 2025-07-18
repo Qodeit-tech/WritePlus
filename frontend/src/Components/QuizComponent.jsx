@@ -5,6 +5,7 @@ import "./QuizComponent.css";
 import "./Section7.css";
 import Warn from "../assets/warning.webp";
 import Meta from "./Meta";
+import { useNavigate } from "react-router-dom";
 
 const QuizComponent = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -15,10 +16,16 @@ const QuizComponent = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
-  const paymentUrl = "https://www.paypal.com/ncp/payment/9S63R7ED69JQN";
+  const [isPayPalVisible, setIsPayPalVisible] = useState(false);
+  const [paypalRendered, setPaypalRendered] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!showPopup) return;
+
+    setTimeLeft(30 * 60); // Reset countdown
+    setIsPayPalVisible(false); // Reset PayPal visibility
+    setPaypalRendered(false); // Ensure button can re-render
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -49,6 +56,7 @@ const QuizComponent = () => {
     setShowConfirm(false);
     if (shouldClose) {
       setShowPopup(false);
+      setPaypalRendered(false);
     }
   };
 
@@ -88,6 +96,58 @@ const QuizComponent = () => {
     e.stopPropagation();
     setShowPopup(true);
   };
+
+  useEffect(() => {
+    if (!isPayPalVisible || paypalRendered) return;
+
+    const containerId = "js-sdk-container-XB23HAYHKCDBG";
+    const renderButton = () => {
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.error("PayPal container not found:", containerId);
+        return;
+      }
+
+      container.innerHTML = "";
+
+      if (window.paypal) {
+        window.paypal
+          .HostedButtons({
+            hostedButtonId: "XB23HAYHKCDBG",
+            onApprove: async (data, actions) => {
+              try {
+                const order = await actions.order.capture();
+                console.log("Transaction completed:", order);
+                localStorage.setItem("ebook_paid", "true");
+                navigate("/payment-success");
+              } catch (err) {
+                console.error("Payment error:", err);
+                alert(
+                  "Something went wrong after payment. Please contact support."
+                );
+              }
+            },
+          })
+          .render(`#${containerId}`);
+        setPaypalRendered(true);
+      } else {
+        console.error("PayPal SDK not loaded.");
+      }
+    };
+
+    const existingScript = document.getElementById("paypal-sdk");
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src =
+        "https://www.paypal.com/sdk/js?client-id=BAABgtWBIGjoZSIC9TQAa0gsEMaVjI4_K3ZVrJYAmyHkNa0iqnW-Zt8-X5V7CgOr-6GOJ4qS7AvqGNW9Dc&components=hosted-buttons&disable-funding=venmo&currency=USD";
+      script.id = "paypal-sdk";
+      script.onload = renderButton;
+      document.body.appendChild(script);
+    } else {
+      renderButton();
+    }
+  }, [isPayPalVisible, paypalRendered, navigate]);
 
   const metaContent = !quizStarted
     ? {
@@ -225,14 +285,19 @@ const QuizComponent = () => {
                       Offer expires in: <span>{formatTime(timeLeft)}</span>
                     </p>
                     <p className="discount-text">50% OFF - Today Only!</p>
-                    <motion.button
-                      className="payment-button"
-                      onClick={() => window.open(paymentUrl, "_blank")}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Get Instant Access Now
-                    </motion.button>
+                    {!isPayPalVisible && (
+                      <button
+                        className="payment-button"
+                        onClick={() => setIsPayPalVisible(true)}
+                      >
+                        Get Instant Access Now
+                      </button>
+                    )}
+                    {isPayPalVisible && (
+                      <div className="paypal-hosted-button">
+                        <div id="js-sdk-container-XB23HAYHKCDBG"></div>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <div className="confirmation-dialog">
