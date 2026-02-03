@@ -9,18 +9,27 @@ require("dotenv").config();
 
 const app = express();
 
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://www.writeplus.in",
-    "https://writeplus.in",
-  ],
-  methods: ["POST", "GET", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
-  credentials: true,
-};
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://www.writeplus.in",
+        "https://writeplus.in",
+      ];
 
-app.use(cors(corsOptions));
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+app.options("*", cors());
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI);
