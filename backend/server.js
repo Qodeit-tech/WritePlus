@@ -28,7 +28,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-app.options("*", cors());
+app.options("/*", cors());
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -133,7 +133,7 @@ app.post("/api/send-ebook", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
