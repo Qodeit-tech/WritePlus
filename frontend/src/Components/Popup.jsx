@@ -58,7 +58,7 @@ const Popup = ({ onClose, initialTime = 30 * 60 }) => {
       setIsSubmitting(true);
 
       // Send form data to your backend API
-      const response = await fetch("https://www.writeplus.in/api/save-lead", {
+      const response = await fetch("https://writeplus.in/api/save-lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
