@@ -13,9 +13,8 @@ app.use(
   cors({
     origin: function (origin, callback) {
       const allowedOrigins = [
-        "http://localhost:5173",
-        "https://www.writeplus.in",
         "https://writeplus.in",
+        "https://www.writeplus.in",
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
