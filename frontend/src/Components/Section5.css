@@ -55,7 +55,7 @@
   align-items: start;
   justify-content: center;
   gap: 2.5vh;
-  color: #f0f0f0;
+  color: #f5f5f3;
   padding-right: 1vmax;
 }
 
@@ -159,7 +159,7 @@
 
 /* For screens max-width 400px (Mobile) */
 @media screen and (max-width: 400px) {
- .section5 {
+  .section5 {
     flex-direction: column;
   }
 

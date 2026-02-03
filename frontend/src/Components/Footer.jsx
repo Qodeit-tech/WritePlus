@@ -1,14 +1,14 @@
 import React from "react";
 import "./Footer.css";
-import Logo from "../assets/logo.webp";
+import Logo from "../assets/logo-blue.png";
 import Facebook from "../assets/facebook.webp";
 import Linkedin from "../assets/linkedin.webp";
 
 const Footer = () => {
   return (
     <footer>
-      <div className="left">
-        <div className="logo">
+      <div className="footer-left">
+        <div className="footer-logo">
           <img src={Logo} alt="" />
         </div>
         <p>
@@ -17,15 +17,15 @@ const Footer = () => {
           your shortcut to faster, smarter, and stress-free academic success.
         </p>
       </div>
-      <div className="right">
-        <div className="right-box">
+      <div className="footer-right">
+        <div className="footer-right-box">
           <h3>Navigation</h3>
           <a href="/">Home</a>
           <a href="#about-us">About Us</a>
           <a href="#why-us">Why Us</a>
           <a href="/quiz">Play Our Quiz</a>
         </div>
-        <div className="right-box2">
+        <div className="footer-right-box2">
           <h3>Follow Us On</h3>
           <a href="">
             <img src={Facebook} alt="" />

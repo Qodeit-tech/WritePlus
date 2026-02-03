@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./Contact.css";
 import "./Nav";
 import Nav from "./Nav";
 import ContactImg from "../assets/Contact-us.png";
 import emailjs from "@emailjs/browser";
 import Meta from "./Meta";
-
+import ContactLogoWhite from "../assets/logo-white.png"; // Import white logo
+import ContactLogoBlue from "../assets/logo-blue.png";
 
 const Contact = () => {
   const form = useRef();
@@ -20,7 +21,7 @@ const Contact = () => {
         "service_ctau5be", // 🔁 Replace with your EmailJS Service ID
         "template_g009duj", // 🔁 Replace with your EmailJS Template ID
         form.current,
-        "BMYQR8mckwfCg9DTI" // 🔁 Replace with your EmailJS Public Key
+        "BMYQR8mckwfCg9DTI", // 🔁 Replace with your EmailJS Public Key
       )
       .then(
         (result) => {
@@ -31,7 +32,7 @@ const Contact = () => {
         (error) => {
           console.error("FAILED...", error.text);
           setStatus("Failed to send message. Please try again.");
-        }
+        },
       );
   };
 
@@ -41,7 +42,11 @@ const Contact = () => {
         title="Contact the WritePlus Team for Support & Inquiries"
         description="Have questions about WritePlus? Reach out to our team for quick support, partnership inquiries, or feedback. We're here to help PhD & Master's students succeed."
       />
-      <Nav></Nav>
+      <Nav
+        navColor="#F5F5F3" // Light background for nav
+        navTextColor="#3848B6"
+        navLogo={ContactLogoBlue}
+      ></Nav>
       <div className="contact">
         <div className="contact-left">
           <img src={ContactImg} alt="image" />

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Section3.css";
-import Wave from "../assets/wave.webp";
-import WaveDown from "../assets/wave-down.webp";
+import Wave from "../assets/wave.png";
+import WaveDown from "../assets/wave-down.png";
 import Img from "../assets/section3-2.webp";
 
 const Section3 = () => {

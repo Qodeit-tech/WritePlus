@@ -1,7 +1,7 @@
 import React from "react";
 import "./Section5.css";
-import WaveDown from "../assets/wave-down.webp";
-import Wave from "../assets/wave.webp";
+import WaveDown from "../assets/wave-down.png";
+import Wave from "../assets/wave.png";
 import Check1 from "../assets/check1.webp";
 import Img from "../assets/section5.webp";
 

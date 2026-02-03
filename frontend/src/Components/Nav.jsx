@@ -1,37 +1,76 @@
 import React, { useState } from "react";
 import "./Nav.css";
-import Logo from "../assets/logo.webp";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Nav = ({ navColor }) => {
+const Nav = ({ navColor, navTextColor, navLogo }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // Get current location
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const handleNavigation = (href, e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    if (href.startsWith("/")) {
+      navigate(href);
+    } else if (href.startsWith("#")) {
+      const hash = href.substring(1);
 
-  const handleLogoClick = () => {
-    navigate("/");
-    setMenuOpen(false); // close menu if open
-    window.scrollTo({ top: 0, behavior: "smooth" }); // optional: scroll to top
+      if (location.pathname === "/") {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    }
   };
 
   return (
     <>
-      <nav style={{ background: navColor, transition: "background 0.3s ease" }}>
-        <div className="logo" onClick={handleLogoClick}>
-          <img src={Logo} alt="Logo" />
+      {menuOpen && (
+        <div className="menu-overlay" onClick={() => setMenuOpen(false)} />
+      )}
+
+      <nav
+        style={{
+          background: navColor,
+          "--nav-text-color": navTextColor,
+        }}
+      >
+        <div className="logo" onClick={() => navigate("/")}>
+          <img src={navLogo} alt="Logo" />
         </div>
+
         <div className={`links ${menuOpen ? "mobile-open" : ""}`}>
-          <a href="/">Home</a>
-          <a href="#about-us">About Us</a>
-          <a href="#why-us">Why Us</a>
-          <a href="/contact">Contact Us</a>
-          <a href="/quiz">Take Quiz</a>
+          <a href="/" onClick={(e) => handleNavigation("/", e)}>
+            Home
+          </a>
+          <a href="#about-us" onClick={(e) => handleNavigation("#about-us", e)}>
+            About Us
+          </a>
+          <a href="#why-us" onClick={(e) => handleNavigation("#why-us", e)}>
+            Why Us
+          </a>
+          <a href="/contact" onClick={(e) => handleNavigation("/contact", e)}>
+            Contact Us
+          </a>
+          <a href="/quiz" onClick={(e) => handleNavigation("/quiz", e)}>
+            Take Quiz
+          </a>
         </div>
-        <button className="mobile-menu-button" onClick={toggleMenu}>
-          <span className="menu-icon">{menuOpen ? "✕" : "☰"}</span>
+
+        <button
+          className="mobile-menu-button"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "✕" : "☰"}
         </button>
       </nav>
     </>

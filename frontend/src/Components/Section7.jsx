@@ -1,109 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Section7.css";
-import WaveDown from "../assets/wave-down.webp";
-import Wave from "../assets/wave.webp";
+import WaveDown from "../assets/wave-down.png";
+import Wave from "../assets/wave.png";
 import Grads from "../assets/grads.webp";
-import { useNavigate } from "react-router-dom";
+import Popup from "./Popup";
 
 const Section7 = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes
-  const [isPayPalVisible, setIsPayPalVisible] = useState(false);
-  const [paypalRendered, setPaypalRendered] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!showPopup) return;
-
-    setTimeLeft(30 * 60); // Reset countdown
-    setIsPayPalVisible(false); // Reset PayPal visibility
-    setPaypalRendered(false); // Ensure button can re-render
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [showPopup]);
-
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
-  const handleClosePopup = () => {
-    setShowConfirm(true);
-  };
-
-  const confirmClose = (shouldClose) => {
-    setShowConfirm(false);
-    if (shouldClose) {
-      setShowPopup(false);
-      setPaypalRendered(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!isPayPalVisible || paypalRendered) return;
-
-    const containerId = "js-sdk-container-XB23HAYHKCDBG";
-    const renderButton = () => {
-      const container = document.getElementById(containerId);
-      if (!container) {
-        console.error("PayPal container not found:", containerId);
-        return;
-      }
-
-      container.innerHTML = "";
-
-      if (window.paypal) {
-        window.paypal
-          .HostedButtons({
-            hostedButtonId: "XB23HAYHKCDBG",
-            onApprove: async (data, actions) => {
-              try {
-                const order = await actions.order.capture();
-                console.log("Transaction completed:", order);
-                localStorage.setItem("ebook_paid", "true");
-                navigate("/payment-success");
-              } catch (err) {
-                console.error("Payment error:", err);
-                alert(
-                  "Something went wrong after payment. Please contact support."
-                );
-              }
-            },
-          })
-          .render(`#${containerId}`);
-        setPaypalRendered(true);
-      } else {
-        console.error("PayPal SDK not loaded.");
-      }
-    };
-
-    const existingScript = document.getElementById("paypal-sdk");
-
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.src =
-        "https://www.paypal.com/sdk/js?client-id=BAABgtWBIGjoZSIC9TQAa0gsEMaVjI4_K3ZVrJYAmyHkNa0iqnW-Zt8-X5V7CgOr-6GOJ4qS7AvqGNW9Dc&components=hosted-buttons&disable-funding=venmo&currency=USD";
-      script.id = "paypal-sdk";
-      script.onload = renderButton;
-      document.body.appendChild(script);
-    } else {
-      renderButton();
-    }
-  }, [isPayPalVisible, paypalRendered, navigate]);
 
   return (
     <div className="section7">
@@ -149,63 +52,9 @@ const Section7 = () => {
             Limited Early Access Pricing. Don't Miss Out.
           </p>
         </div>
-      </div>
-
-      {/* Payment Popup */}
+      </div>{" "}
       {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-container">
-            <button className="popup-close" onClick={handleClosePopup}>
-              &times;
-            </button>
-
-            {!showConfirm ? (
-              <>
-                <h2>Limited Time Offer!</h2>
-                <div className="price-animation">
-                  <div className="original-price">$99.99</div>
-                  <div className="discounted-price">$49.99</div>
-                </div>
-                <p className="time-left">
-                  Offer expires in: <span>{formatTime(timeLeft)}</span>
-                </p>
-                <p className="discount-text">50% OFF - Today Only!</p>
-                {!isPayPalVisible && (
-                  <button
-                    className="payment-button"
-                    onClick={() => setIsPayPalVisible(true)}
-                  >
-                    Get Instant Access Now
-                  </button>
-                )}
-                {isPayPalVisible && (
-                  <div className="paypal-hosted-button">
-                    <div id="js-sdk-container-XB23HAYHKCDBG"></div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="confirmation-dialog">
-                <h3>Are you sure you want to leave?</h3>
-                <p>This special offer won't last forever!</p>
-                <div className="confirmation-buttons">
-                  <button
-                    className="confirm-button confirm-yes"
-                    onClick={() => confirmClose(true)}
-                  >
-                    Yes, I'll miss out
-                  </button>
-                  <button
-                    className="confirm-button confirm-no"
-                    onClick={() => confirmClose(false)}
-                  >
-                    No, I want the deal!
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <Popup onClose={() => setShowPopup(false)} initialTime={30 * 60} />
       )}
     </div>
   );

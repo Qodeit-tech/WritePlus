@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./PaymentSuccess.css";
-import Wave1 from "./assets/wave.webp";
-import Wave2 from "./assets/wave-down.webp";
+import Wave1 from "./assets/wave.png";
+import Wave2 from "./assets/wave-down.png";
 import Check from "./assets/check.webp";
 
 const PaymentSuccess = () => {
@@ -39,7 +39,7 @@ const PaymentSuccess = () => {
             "Content-Type": "application/json",
           },
           timeout: 30000,
-        }
+        },
       );
 
       if (response.data.success) {

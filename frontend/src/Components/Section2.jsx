@@ -3,7 +3,7 @@ import "./Section2.css";
 import Speed from "../assets/performance.webp";
 import Trust from "../assets/trust.webp";
 import Scientific from "../assets/scientific.webp";
-import WaveDown from "../assets/wave-down.webp";
+import WaveDown from "../assets/wave-down.png";
 import Img from "../assets/section2.webp";
 
 const Section2 = () => {
