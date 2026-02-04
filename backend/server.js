@@ -9,29 +9,34 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = [
-        "https://writeplus.in",
-        "https://www.writeplus.in",
-      ];
+// Enhanced CORS configuration
+const corsOptions = {
+  origin: ["https://writeplus.in", "https://www.writeplus.in"],
+  credentials: true,
+  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
 
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
-app.options("/*", cors());
+// Apply CORS middleware
+app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options("*", cors(corsOptions));
+
+// Body parser middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URI);
+// MongoDB connection with error handling
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 const LeadSchema = new mongoose.Schema({
   name: String,
@@ -42,14 +47,43 @@ const LeadSchema = new mongoose.Schema({
 
 const Lead = mongoose.model("Lead", LeadSchema);
 
+// Add request logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  console.log("Origin:", req.headers.origin);
+  console.log("Headers:", req.headers);
+  next();
+});
+
+// Handle preflight for specific routes
+app.options("/api/save-lead", cors(corsOptions));
+app.options("/api/send-ebook", cors(corsOptions));
+
+// API Routes
 app.post("/api/save-lead", async (req, res) => {
+  console.log("📥 /api/save-lead request:", req.body);
+
+  // Add CORS headers to response
+  res.header(
+    "Access-Control-Allow-Origin",
+    req.headers.origin || "https://www.writeplus.in",
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+
   try {
     const { name, email, whatsapp } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ error: "Name and email are required" });
+    }
+
     const newLead = new Lead({ name, email, whatsapp });
     await newLead.save();
+
+    console.log("✅ Lead saved:", { name, email, whatsapp });
     res.json({ success: true, message: "Form data saved" });
   } catch (error) {
-    console.error("Error saving form:", error);
+    console.error("❌ Error saving form:", error);
     res.status(500).json({ error: "Failed to save form data" });
   }
 });
@@ -135,5 +169,8 @@ app.post("/api/send-ebook", async (req, res) => {
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`✅ CORS enabled for:`);
+  console.log(`   - https://writeplus.in`);
+  console.log(`   - https://www.writeplus.in`);
 });
