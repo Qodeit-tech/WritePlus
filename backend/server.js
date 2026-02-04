@@ -19,22 +19,13 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-// Apply CORS middleware
 app.use(cors(corsOptions));
 
-// Handle preflight requests explicitly
-app.options("*", cors(corsOptions));
-
-// Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MongoDB connection with error handling
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
@@ -47,28 +38,16 @@ const LeadSchema = new mongoose.Schema({
 
 const Lead = mongoose.model("Lead", LeadSchema);
 
-// Add request logging middleware
+// Request logging
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
   console.log("Origin:", req.headers.origin);
-  console.log("Headers:", req.headers);
   next();
 });
-
-// Handle preflight for specific routes
-app.options("/api/save-lead", cors(corsOptions));
-app.options("/api/send-ebook", cors(corsOptions));
 
 // API Routes
 app.post("/api/save-lead", async (req, res) => {
   console.log("📥 /api/save-lead request:", req.body);
-
-  // Add CORS headers to response
-  res.header(
-    "Access-Control-Allow-Origin",
-    req.headers.origin || "https://www.writeplus.in",
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
 
   try {
     const { name, email, whatsapp } = req.body;
