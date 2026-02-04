@@ -11,7 +11,7 @@ const app = express();
 
 // Enhanced CORS configuration
 const corsOptions = {
-  origin: ["https://writeplus.in", "https://www.writeplus.in"],
+  origin: ["https://writeplus.in", "https://www.writeplus.in", "http://localhost:5173"],
   credentials: true,
   methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
